@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('niceplaymycardV3-V0.0.1.aar'))

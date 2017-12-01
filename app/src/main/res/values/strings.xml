@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="button1">Button1</string>
+    <string name="facebook_app_id">328554970811223</string>
+    <string name="fb_login_protocol_scheme">fb328554970811223</string>
+    <string name="payingprogressmsg">支付中</string>
+    <string name="loadingchecknetwork">連線中,請保持您的網路暢通以完成交易</string>
+    <string name="loading">伺服器連線中</string>
+
+    <string name="language">SpinnerDemo</string>
+    <string-array name="language">
+        <item>繁中</item>
+        <item>簡中</item>
+        <item>日文</item>
+        <item>英文</item>
+        <item>韓文</item>
+    </string-array>
+
+</resources>

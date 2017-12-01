@@ -1,0 +1,1 @@
+include ':app', ':BaseGameUtils', ':niceplaymycardV3-V0.0.1'
