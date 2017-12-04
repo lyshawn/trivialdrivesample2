@@ -52,6 +52,13 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/button15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="呼叫登入碼" />
+
+        <Button
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -132,7 +139,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="fb test" />
+            android:text="fb test"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -156,7 +164,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel Binding" />
+            android:text="Cancel Binding"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/button10"

@@ -118,6 +118,11 @@
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
+            android:name="com.niceplay.niceplaytoollist.NPToolWebView"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:background="#00000000"></activity>
+
+        <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
@@ -136,15 +141,16 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <provider android:authorities="com.facebook.app.FacebookContentProvider328554970811223"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="iap:api_version"
             android:value="4" />
-        <provider android:authorities="com.facebook.app.FacebookContentProvider328554970811223"
-            android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+
     </application>
 
 

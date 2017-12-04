@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.nfc.Tag;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +45,10 @@ import com.niceplay.niceplaygb.NicePlayGBillingV3;
 import com.niceplay.niceplaygcm.NicePlayGCMRegister;
 import com.niceplay.niceplaymycard.NicePlayMyCardActivity;
 import com.niceplay.niceplayonebilling.NicePlayOneStoreV3;
+import com.niceplay.niceplaytoollist.NPToolList;
+import com.niceplay.niceplaytoollist.NicePlayToolKeys;
 import com.niceplay.vip_three.NPVIPDialog;
+
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -55,10 +59,12 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout LinearLayout1,LinearLayout2,LinearLayout3,LinearLayout4,LinearLayout5,LinearLayout6,LinearLayout7;
     private TextView textview1,textview2,textview3,textview4,textview5,textview10;
     private ImageButton imageButton1,imageButton2,imageButton3,imageButton4;
-    private Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button10,button11,button12,button13,button14;
+    private Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button10,button11,button12,button13,button14,button15;
     private EditText editText1,editText2;
     private Spinner spinner1;
     private String appid = "DEMO";
+    private String apikey = "daf964f8d22c46d7ce4fb15a555aeece";
+    static final int SHORT_DELAY = 2000;
 
     //Google Billing
     private String SKU_GAS = "android60";                                                        //9splay user id v3//Appid : 9s提供之appid
@@ -73,18 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity" ;
     String[] productArray = new String[]{ "android60" , "android60"};
-
-    public String picUrl = "http://member.9splay.com/images/logo_9s.png";
-    public String Appname = "9splay Testing";
-    public String link = "http://www.9splay.com";
-    public String Description = "真好玩娛樂科技股份有限公司";
-    public String sharecode =null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //callbackManager = CallbackManager.Factory.create();
 
         LinearLayout2 = (LinearLayout) findViewById(R.id.LinearLayout2);
         LinearLayout3 = (LinearLayout) findViewById(R.id.LinearLayout3);
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         button12 = (Button) findViewById(R.id.button12);
         button13 = (Button) findViewById(R.id.button13);
         button14 = (Button) findViewById(R.id.button14);
+        button15 = (Button) findViewById(R.id.button15);
         imageButton1 = (ImageButton) findViewById(R.id.imageButton1) ;
         imageButton2 = (ImageButton) findViewById(R.id.imageButton2) ;
         imageButton3 = (ImageButton) findViewById(R.id.imageButton3) ;
@@ -126,11 +127,8 @@ public class MainActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         //AppEventsLogger.activateApp(getApplication());                                             //facebook 廣告追蹤
 
-
         NicePlayGCMRegister.register(MainActivity.this);                                // P U S H 推播
         NicePlayGCMRegister.ClearNotificationInfo(MainActivity.this);                       //清除 P U S H 推播
-
-
 
         PackageInfo info;                                                                       //抓FB HASH KEY
         try{
@@ -178,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                     case GooglePlaySignInSuccess:
                         String icon = b.getString(NPPlayGameKeys.ICONIMAGEURL.toString());
                         String name = b.getString(NPPlayGameKeys.DISPLAYNAME.toString());
-
+                        Toast.makeText(MainActivity.this , " 登 入 成 功 \n"+icon+name , Toast.LENGTH_LONG).show();
                         break;
 
                     //切換帳號成功
@@ -221,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {                                           //PUSH推播功能
                         String pushtitle = editText1.getText().toString();
                         String pushmsg = editText2.getText().toString();
-                        NicePlayGCMRegister.AddScheduledService(MainActivity.this, 2000, pushmsg,pushtitle);
+                        NicePlayGCMRegister.AddScheduledService(MainActivity.this, SHORT_DELAY, pushmsg,pushtitle);
                         editText1.setText("");
                         editText2.setText("");
                     }
@@ -238,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                                     @SuppressLint("WrongConstant")
                                     @Override
                                     public void onEvent(int Code, int Select, String Message) {
-                                        Toast.makeText(MainActivity.this, "Code = " + Code + " , select = " + Select + " , message = " + Message, 2000).show();
+                                        Toast.makeText(MainActivity.this, "Code = " + Code + " , select = " + Select + " , message = " + Message, SHORT_DELAY).show();
                                     }
                                 })
                                 .create().show();
@@ -352,7 +350,6 @@ public class MainActivity extends AppCompatActivity {
                         npPlayGameSDK.showNPFBDialog();
                     }
                 });
-
             }
         });
 
@@ -367,7 +364,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
                 button8.setOnClickListener(new View.OnClickListener() {                     // S W I T C H & B I N D
                     @Override
                     public void onClick(View arg0) {
@@ -400,7 +396,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 npPlayGameSDK.showCustomerService(appid, serverid , roleid ,  NPPlayGameSDK.ZH_TW);
-
             }
         });
 
@@ -426,30 +421,67 @@ public class MainActivity extends AppCompatActivity {
              @Override
              public void onClick(View view) {
                 //npPlayGameSDK.goToPlayVideo();
-                npPlayGameSDK.deactiveAccount();
+                npPlayGameSDK.showAchievements();
 
              }
          });
-       /*  button13.setOnClickListener(new View.OnClickListener() {
+         /*button13.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  npPlayGameSDK.cancelBinding();
-
+                 npPlayGameSDK.refreshToken();
              }
-         });*/
-       button14.setOnClickListener(new View.OnClickListener() {
+         });
+       /*button14.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
 
-               NicePlayFB.publishStory(MainActivity.this,sharecode,new NicePlayFB.OnNicePlayFBPublishStoryOnMeListener(){
+               NicePlayFB.publishStory(MainActivity.this, new NicePlayFB.OnNicePlayFBPublishStoryOnMeListener() {
+
                    @Override
+
                    public void onNicePlayFBPublishStoryOnMeCompletion(Exception error) {
+
                        if (error != null) {
                            Log.d("niceplayfb", "error: " + error.getMessage());
                        }
 
                        else {
                            Log.d("niceplayfb", "publish story on me success");
+                       }
+                   }
+               });
+           }
+       });*/
+       button15.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               new NPToolList().getWebAccountLogin(MainActivity.this, appid, apikey, new NPToolList.onToolListListener() {
+
+                   @Override
+                   public void onEvent(int code, String message, Bundle b) {
+                       // TODO Auto-generated method stub
+
+                       switch (code) {
+                           case 1:
+                               String Account = b.getString(NicePlayToolKeys.Account.toString());
+                               String Password = b.getString(NicePlayToolKeys.Password.toString());
+                               textview10.setText(Account +" \n" +Password);
+                               break;
+
+                           case -1:
+                               Toast.makeText(MainActivity.this , "獲取失敗" , SHORT_DELAY).show();
+                               break;
+
+                           case -11:
+
+                               Toast.makeText(MainActivity.this , "尚未綁定GOOGLE，請綁定GOOGLE。" , SHORT_DELAY).show();
+
+                               break;
+
+                           default:
+                               Toast.makeText(MainActivity.this, "Error", SHORT_DELAY).show();
+                               break;
                        }
                    }
                });
@@ -464,11 +496,11 @@ public class MainActivity extends AppCompatActivity {
                 b.putString(NicePlayGBillingV3.base64EncodedPublicKey, base64);
                 b.putString(NicePlayGBillingV3.ItemID, SKU_GAS);
                 b.putString(NicePlayGBillingV3.User_ID_9s,GameUID);                             
-                b.putString(NicePlayGBillingV3.Server, "TestServer1"); //要儲值的目標 Server，僅可使用英文與數字
+                b.putString(NicePlayGBillingV3.Server, serverid); //要儲值的目標 Server，僅可使用英文與數字
                 //b.putString(NicePlayGBillingV3.Country, Country);
                 b.putBoolean(NicePlayGBillingV3.DebugMode, false);  // 此功能是為了debug用，會顯示出log，如要出正式版本可斟酌是否設為false，預設值為false
                 b.putString(NicePlayGBillingV3.APPID, appid);
-                b.putString(NicePlayGBillingV3.Role, "MRDMN477"); //要儲值的角色 ID，優先使用英文與數字
+                b.putString(NicePlayGBillingV3.Role, roleid); //要儲值的角色 ID，優先使用英文與數字
                 b.putString(NicePlayGBillingV3.Order, "TestItem1"); //遊戲端訂單資訊，支付完成會一併回傳特殊字串_*#@是可以用的
                 i.putExtras(b);
                 startActivityForResult(i, NicePlayGBillingV3.GBilling_REQUEST);
@@ -543,13 +575,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //NicePlayFB.onActivityResult(MainActivity.this,requestCode,resultCode,data);
+
+
+        //callbackManager.onActivityResult(requestCode,resultCode, data);
         if(requestCode == 888){
             NPPlayGameSDK.getInstance().onActivityResult(requestCode, resultCode, data);
+        }
 
-        }
-        if(requestCode == 1){
-            NicePlayFB.onActivityResult(this, requestCode, resultCode, data);
-        }
+
 
         if(requestCode == NicePlayGBillingV3.GBilling_REQUEST) {
             int code = data.getExtras().getInt(NicePlayGBillingV3.code);

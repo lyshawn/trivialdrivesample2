@@ -50,4 +50,5 @@ dependencies {
     implementation files('libs/gcm.jar')
     implementation files('libs/niceplaygcm-V1.1.2.jar')
     implementation files('libs/niceplayfb.jar')
+    implementation files('libs/niceplaytoollist_V1.1.5.jar')
 }
