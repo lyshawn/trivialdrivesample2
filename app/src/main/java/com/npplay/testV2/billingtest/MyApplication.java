@@ -13,8 +13,6 @@ public class MyApplication extends Application {
     private String apikey = "daf964f8d22c46d7ce4fb15a555aeece";
 
 
-
-
     @Override
     public void onCreate() {
 

@@ -38,7 +38,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':BaseGameUtils')
     compile 'com.android.support:multidex:1.0.2'
-    compile(name: 'npplaygamesdkV3_1.7.4', ext: 'aar')
+    compile(name: 'npplaygamesdkV3_1.7.9', ext: 'aar')
     compile(name: 'zxing-android-embedded', ext: 'aar')
     compile(name: 'npfivestarrateV3_1.0.4', ext: 'aar')
     compile(name: 'cardview-v7-25.0.1', ext: 'aar')

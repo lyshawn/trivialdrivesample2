@@ -346,8 +346,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 runOnUiThread(new Runnable() {                           //FB
                     @Override
-                    public void run() {
-                        npPlayGameSDK.showNPFBDialog();
+                    public void run() {npPlayGameSDK.showNPFBDialog();
                     }
                 });
             }
@@ -466,21 +465,23 @@ public class MainActivity extends AppCompatActivity {
                            case 1:
                                String Account = b.getString(NicePlayToolKeys.Account.toString());
                                String Password = b.getString(NicePlayToolKeys.Password.toString());
-                               textview10.setText(Account +" \n" +Password);
+                               textview10.setText(code+"\n"+Account +" \n" +Password);
                                break;
 
                            case -1:
                                Toast.makeText(MainActivity.this , "獲取失敗" , SHORT_DELAY).show();
+                               textview10.setText(code+"\n"+"獲取失敗");
                                break;
 
                            case -11:
 
                                Toast.makeText(MainActivity.this , "尚未綁定GOOGLE，請綁定GOOGLE。" , SHORT_DELAY).show();
-
+                               textview10.setText(code+"\n"+"尚未綁定GOOGLE，請綁定GOOGLE。");
                                break;
 
                            default:
                                Toast.makeText(MainActivity.this, "Error", SHORT_DELAY).show();
+                               textview10.setText(code+"\n"+"Error");
                                break;
                        }
                    }
